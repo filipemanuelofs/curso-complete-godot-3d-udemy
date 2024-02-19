@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdistwk8r48en"
-path.s3tc="res://.godot/imported/Rock01_1K_BaseColor.png-32ab9626244ceb12a1b46b0c38032da2.s3tc.ctex"
+uid="uid://cxw8ucak8tniv"
+path.s3tc="res://.godot/imported/Granite07large_1K_BaseColor.png-466b876b1fd1567ea714ea263c02dcc7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/Rock01_1K_BaseColor.png"
-dest_files=["res://.godot/imported/Rock01_1K_BaseColor.png-32ab9626244ceb12a1b46b0c38032da2.s3tc.ctex"]
+source_file="res://Textures/Granite07large_1K_BaseColor.png"
+dest_files=["res://.godot/imported/Granite07large_1K_BaseColor.png-466b876b1fd1567ea714ea263c02dcc7.s3tc.ctex"]
 
 [params]
 

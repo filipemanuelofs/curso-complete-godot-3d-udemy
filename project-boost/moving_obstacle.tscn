@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7rhk11jkmkp2"]
+[gd_scene load_steps=6 format=3 uid="uid://c7rhk11jkmkp2"]
 
 [ext_resource type="Script" path="res://moving_obstacle.gd" id="1_pq3x3"]
+[ext_resource type="Texture2D" uid="uid://bif7w8ykawnji" path="res://Textures/BrickWall19_1K_BaseColor.png" id="2_hbhky"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dde1s"]
-albedo_color = Color(0.792157, 0.776471, 0.588235, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hapr6"]
+albedo_texture = ExtResource("2_hbhky")
 
 [sub_resource type="BoxMesh" id="BoxMesh_uk77f"]
 size = Vector3(3, 3, 3)
@@ -16,7 +17,7 @@ script = ExtResource("1_pq3x3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04601, 0)
-material_override = SubResource("StandardMaterial3D_dde1s")
+material_override = SubResource("StandardMaterial3D_hapr6")
 mesh = SubResource("BoxMesh_uk77f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

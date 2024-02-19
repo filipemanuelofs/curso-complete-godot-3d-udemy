@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk65ij65ulteu"]
+[gd_scene load_steps=9 format=3 uid="uid://dk65ij65ulteu"]
 
+[ext_resource type="Texture2D" uid="uid://bif7w8ykawnji" path="res://Textures/BrickWall19_1K_BaseColor.png" id="1_y4n6c"]
 [ext_resource type="Script" path="res://Level/LandingPad.gd" id="2_s8huf"]
 [ext_resource type="PackedScene" uid="uid://bgjt83g3uhgvs" path="res://background.tscn" id="3_ghfj1"]
 [ext_resource type="PackedScene" uid="uid://qg26d7kff4vf" path="res://player.tscn" id="3_h5hcr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28out"]
+albedo_texture = ExtResource("1_y4n6c")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mva72"]
 albedo_color = Color(0.913725, 0.635294, 1, 1)
@@ -17,6 +21,7 @@ albedo_color = Color(0.376471, 0.858824, 0.423529, 1)
 
 [node name="Obstacle" type="CSGBox3D" parent="." groups=["Hazard"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278681, 6.01896, 0.144862)
+material_override = SubResource("StandardMaterial3D_28out")
 use_collision = true
 size = Vector3(10, 2, 3)
 material = SubResource("StandardMaterial3D_mva72")
