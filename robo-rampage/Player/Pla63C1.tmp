@@ -1,0 +1,191 @@
+[gd_scene load_steps=17 format=3 uid="uid://o1lyfvj1cpnv"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_p8lf6"]
+[ext_resource type="Script" path="res://Player/camera.gd" id="2_idvsq"]
+[ext_resource type="Script" path="res://Player/crosshair.gd" id="3_mb337"]
+[ext_resource type="PackedScene" uid="uid://dndju5qoqtm08" path="res://Weapons/SMG.tscn" id="3_saiuj"]
+[ext_resource type="Script" path="res://Player/weapon_handler.gd" id="3_sn5f6"]
+[ext_resource type="PackedScene" uid="uid://xdwcsp6eivg6" path="res://Weapons/Rifle.tscn" id="3_sx0qu"]
+[ext_resource type="Texture2D" uid="uid://ddrq4jxng6v3h" path="res://Assets/damage.png" id="5_l1u0k"]
+[ext_resource type="PackedScene" uid="uid://6i42tjf60qr" path="res://Player/Game_Over_Menu.tscn" id="6_4od10"]
+[ext_resource type="Script" path="res://Player/ammo_handler.gd" id="6_fggql"]
+[ext_resource type="FontFile" uid="uid://wlabcsdc5cgq" path="res://Assets/Kanit-Regular.ttf" id="9_kn7q7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rd8wi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4jtkx"]
+
+[sub_resource type="Animation" id="Animation_gps7a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oa23k"]
+resource_name = "take_damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_acs1a"]
+_data = {
+"RESET": SubResource("Animation_gps7a"),
+"take_damage": SubResource("Animation_oa23k")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_5guay"]
+font = ExtResource("9_kn7q7")
+font_size = 50
+font_color = Color(0, 0.721569, 0.627451, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_p8lf6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_rd8wi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_4jtkx")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+top_level = true
+cull_mask = 1048573
+script = ExtResource("2_idvsq")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/Camera3D"]
+remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera3D")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="WeaponCamera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+cull_mask = 2
+
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera3D" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+unique_name_in_owner = true
+script = ExtResource("3_sn5f6")
+weapon_1 = NodePath("SMG")
+weapon_2 = NodePath("Rifle")
+
+[node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera3D/WeaponHandler" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_sx0qu")]
+ammo_handler = NodePath("../../AmmoHandler")
+
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera3D/WeaponHandler" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_saiuj")]
+ammo_handler = NodePath("../../AmmoHandler")
+ammo_type = 1
+is_weapon_equipped = true
+
+[node name="AmmoHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera3D" node_paths=PackedStringArray("ammo_label")]
+unique_name_in_owner = true
+script = ExtResource("6_fggql")
+ammo_label = NodePath("../../../../MarginContainer/AmmoLabel")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Crosshair" type="Control" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("3_mb337")
+
+[node name="DamageTexture" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+mouse_filter = 2
+texture = ExtResource("5_l1u0k")
+
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTexture"]
+libraries = {
+"": SubResource("AnimationLibrary_acs1a")
+}
+autoplay = "RESET"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="AmmoLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "0"
+label_settings = SubResource("LabelSettings_5guay")
+
+[node name="GameOverMenu" parent="." instance=ExtResource("6_4od10")]
+visible = false
