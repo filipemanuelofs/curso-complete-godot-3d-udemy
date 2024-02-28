@@ -4,9 +4,10 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wlep3"]
 albedo_texture = ExtResource("1_caij4")
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixbdj"]
-load_path = "res://.godot/imported/Rock01_1K_BaseColor.png-32ab9626244ceb12a1b46b0c38032da2.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b04my"]
 albedo_texture = SubResource("CompressedTexture2D_ixbdj")
