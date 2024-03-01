@@ -1,7 +1,7 @@
 extends Area3D
 
 
-@export var ammo_type: AmmoHandler.ammo_type
+@export var ammo_type: AmmoHandler.AMMO_TYPE
 @export var amount: int = 20
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

@@ -9,11 +9,12 @@ class_name HitscanWeapon
 @export var sparks: PackedScene
 @export var is_automatic: bool
 @export var ammo_handler: AmmoHandler
-@export var ammo_type: AmmoHandler.ammo_type
+@export var ammo_type: AmmoHandler.AMMO_TYPE
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position := weapon_mesh.position
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var crosshair: Control = %Crosshair
 
 var lerp_speed := 10.0
 @export var is_weapon_equipped := false
@@ -30,6 +31,11 @@ func _process(delta: float) -> void:
 				shoot()
 	
 	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * lerp_speed)
+	
+	if is_enemy_collider():
+		crosshair.set_target_enemy(true)
+	else:
+		crosshair.set_target_enemy(false)
 
 func shoot() -> void:
 	if ammo_handler.has_ammo(ammo_type):
@@ -39,9 +45,13 @@ func shoot() -> void:
 		weapon_mesh.position.z += recoil
 		
 		var collider := ray_cast_3d.get_collider()
+		
 		if ray_cast_3d.is_colliding():
 			var spark := sparks.instantiate()
 			add_child(spark)
 			spark.global_position = ray_cast_3d.get_collision_point()
-			if collider is Enemy:
+			if is_enemy_collider():
 				collider.health -= weapon_damage
+
+func is_enemy_collider() -> bool:
+	return ray_cast_3d.get_collider() is Enemy

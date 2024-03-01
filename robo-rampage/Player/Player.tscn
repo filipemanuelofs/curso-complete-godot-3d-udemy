@@ -149,6 +149,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CenterContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_mb337")
 

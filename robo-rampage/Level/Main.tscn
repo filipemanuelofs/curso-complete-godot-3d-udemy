@@ -475,7 +475,7 @@ omni_range = 25.0
 omni_attenuation = 0.25
 
 [node name="Light4" parent="Decoration/Ceiling" instance=ExtResource("11_i2qfc")]
-transform = Transform3D(-2, -8.74228e-08, -8.74228e-08, -8.74228e-08, 2, -3.49691e-07, 8.74228e-08, -3.49691e-07, -2, 27.2, 6, 5)
+transform = Transform3D(1.74846e-07, -3.49691e-07, -2, -8.74228e-08, 2, -3.49691e-07, 2, 8.74228e-08, 1.74846e-07, 27.2, 6, -11)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Decoration/Ceiling/Light4"]
 transform = Transform3D(1, 4.37114e-08, 1.91069e-15, 0, -4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 0, -0.15, 0)

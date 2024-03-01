@@ -3,28 +3,28 @@ class_name AmmoHandler
 
 @export var ammo_label: Label
 
-enum ammo_type {
+enum AMMO_TYPE {
 	BULLET,
 	SMALL_BULLET
 }
 
 var storage := {
-	ammo_type.BULLET: 10,
-	ammo_type.SMALL_BULLET: 60
+	AMMO_TYPE.BULLET: 10,
+	AMMO_TYPE.SMALL_BULLET: 60
 }
 
-func has_ammo(type: ammo_type) -> bool:
-	return storage[type] > 0
+func has_ammo(_ammo_type: AMMO_TYPE) -> bool:
+	return storage[_ammo_type] > 0
 
-func use_ammo(type: ammo_type) -> void:
-	if has_ammo(type):
-		storage[type] -= 1
-		update_ammo_label(type)
+func use_ammo(_ammo_type: AMMO_TYPE) -> void:
+	if has_ammo(_ammo_type):
+		storage[_ammo_type] -= 1
+		update_ammo_label(_ammo_type)
 
-func update_ammo_label(type: ammo_type) -> void:
-	ammo_label.text = str(storage[type])
+func update_ammo_label(_ammo_type: AMMO_TYPE) -> void:
+	ammo_label.text = str(storage[_ammo_type])
 
-func add_ammo(type: ammo_type, amount: int, update_label: bool) -> void:
-	storage[type] += amount
-	if update_label:
-		update_ammo_label(type)
+func add_ammo(_ammo_type: AMMO_TYPE, _amount: int, _update_label: bool) -> void:
+	storage[_ammo_type] += _amount
+	if _update_label:
+		update_ammo_label(_ammo_type)
