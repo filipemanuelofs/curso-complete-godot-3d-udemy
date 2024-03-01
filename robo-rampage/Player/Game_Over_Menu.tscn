@@ -15,6 +15,7 @@ shader = ExtResource("3_h3mli")
 
 [sub_resource type="LabelSettings" id="LabelSettings_lbquc"]
 font_size = 96
+font_color = Color(0, 0.721569, 0.627451, 1)
 
 [node name="GameOverMenu" type="Control"]
 layout_mode = 3
@@ -50,17 +51,20 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "you dead"
+text = "failed"
 label_settings = SubResource("LabelSettings_lbquc")
 horizontal_alignment = 1
 uppercase = true
 
 [node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+process_mode = 3
+modulate = Color(0, 0.721569, 0.627451, 1)
 layout_mode = 2
 text = "RESTART"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 process_mode = 3
+modulate = Color(0, 0.721569, 0.627451, 1)
 layout_mode = 2
 text = "QUIT"
 

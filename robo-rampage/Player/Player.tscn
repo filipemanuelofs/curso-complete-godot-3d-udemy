@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://o1lyfvj1cpnv"]
+[gd_scene load_steps=18 format=3 uid="uid://o1lyfvj1cpnv"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_p8lf6"]
 [ext_resource type="Script" path="res://Player/camera.gd" id="2_idvsq"]
@@ -76,6 +76,9 @@ _data = {
 "take_damage": SubResource("Animation_oa23k")
 }
 
+[sub_resource type="Theme" id="Theme_udpt1"]
+default_font = ExtResource("9_kn7q7")
+
 [sub_resource type="LabelSettings" id="LabelSettings_5guay"]
 font = ExtResource("9_kn7q7")
 font_size = 50
@@ -132,13 +135,12 @@ ammo_handler = NodePath("../../AmmoHandler")
 
 [node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera3D/WeaponHandler" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_saiuj")]
 ammo_handler = NodePath("../../AmmoHandler")
-ammo_type = 1
 is_weapon_equipped = true
 
 [node name="AmmoHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera3D" node_paths=PackedStringArray("ammo_label")]
 unique_name_in_owner = true
 script = ExtResource("6_fggql")
-ammo_label = NodePath("../../../../MarginContainer/AmmoLabel")
+ammo_label = NodePath("../../../../Control/MarginContainer/AmmoLabel")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -170,23 +172,51 @@ libraries = {
 }
 autoplay = "RESET"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1144.0
+offset_bottom = 640.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -107.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme = SubResource("Theme_udpt1")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="AmmoLabel" type="Label" parent="MarginContainer"]
+[node name="AmmoLabel" type="Label" parent="Control/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 1
 text = "0"
 label_settings = SubResource("LabelSettings_5guay")
+
+[node name="HealthBar" type="ProgressBar" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -836.0
+offset_bottom = 26.0
+grow_horizontal = 2
+step = 1.0
+value = 100.0
+show_percentage = false
 
 [node name="GameOverMenu" parent="." instance=ExtResource("6_4od10")]
 visible = false

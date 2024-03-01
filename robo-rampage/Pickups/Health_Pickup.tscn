@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://by73fqc2pf1uv"]
+
+[ext_resource type="PackedScene" uid="uid://2wabk2wyopn8" path="res://Pickups/Pickup.tscn" id="1_0c000"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bol2k"]
+albedo_color = Color(0.301961, 0.560784, 0.411765, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4wxw"]
+radius = 0.25
+height = 0.5
+
+[node name="HealthPickup" instance=ExtResource("1_0c000")]
+is_health = true
+ammo_type = 1
+
+[node name="AmmoMesh" parent="." index="0"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_bol2k")
+mesh = SubResource("SphereMesh_g4wxw")

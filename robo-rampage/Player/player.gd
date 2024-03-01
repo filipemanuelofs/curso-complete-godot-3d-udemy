@@ -14,6 +14,7 @@ const MOUSE_SENS := 0.006
 
 @onready var weapon_camera_3d: Camera3D = %WeaponCamera3D
 @onready var weapon_camera_3d_fov := weapon_camera_3d.fov
+@onready var health_bar: ProgressBar = %HealthBar
 
 @export var speed := 8.0
 @export var jump_height := 1.0
@@ -100,6 +101,7 @@ func set_health(value: int) -> void:
 		damage_animation_player.stop(false)
 		damage_animation_player.play("take_damage")
 	health = value
+	set_health_bar(health)
 	if health <= 0:
 		game_over_menu.game_over()
 		#get_tree().quit()
@@ -110,3 +112,7 @@ func get_current_weapon() -> HitscanWeapon:
 		if weapon.is_weapon_equipped:
 			return weapon
 	return null
+
+func set_health_bar(_health: int) -> void:
+	health_bar.value = health
+	health_bar.modulate = Color.RED.lerp(Color.GREEN, (float(health) / float(max_health)))

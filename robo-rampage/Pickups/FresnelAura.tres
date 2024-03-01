@@ -17,7 +17,6 @@ void fragment() {
 
 
 // Output:0
-	ALBEDO = vec3(n_out2p0);
 	ALPHA = n_out2p0;
 	EMISSION = vec3(n_out2p0);
 
@@ -27,4 +26,4 @@ void fragment() {
 nodes/fragment/0/position = Vector2(580, 140)
 nodes/fragment/2/node = SubResource("VisualShaderNodeFresnel_8tgym")
 nodes/fragment/2/position = Vector2(180, 40)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1, 2, 0, 0, 0, 2, 0, 0, 5)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 5, 2, 0, 0, 1)
